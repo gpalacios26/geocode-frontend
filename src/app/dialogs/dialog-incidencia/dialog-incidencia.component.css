@@ -1,0 +1,16 @@
+.dialog-cerrar {
+  float:right;
+  margin-top: -15px;
+  margin-right: -15px;
+}
+
+.dialog-titulo {
+  text-align: center;
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.dialog-botones {
+  text-align: center;
+  margin: 20px;
+}

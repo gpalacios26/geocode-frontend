@@ -1,0 +1,12 @@
+.material-full-width {
+  width: 100%;
+}
+
+agm-map {
+  height: 450px;
+}
+
+.btn-registrar {
+  padding: 10px;
+  font-size: 20px;
+}

@@ -1,0 +1,64 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="push" class="sidenav-bar">
+    <div class="center">
+      <p class="padding-10">
+        <mat-icon color="warn" style="font-size: 50px;">add_location_alt</mat-icon>
+        <br><span>GEOCODE</span>
+      </p>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-list role="list">
+      <a mat-list-item role="listitem" (click)="sidenav.close()" [routerLink]="['/panel/home']" class="sidenav-link">
+        <mat-icon matListIcon>map</mat-icon>
+        <span class="sidenav-span">Visor</span>
+      </a>
+      <a mat-list-item role="listitem" (click)="sidenav.close()" [routerLink]="['/panel/usuarios']" class="sidenav-link" *ngIf="admin">
+        <mat-icon matListIcon>supervisor_account</mat-icon>
+        <span class="sidenav-span">Gestión de Usuarios</span>
+      </a>
+      <a mat-list-item role="listitem" (click)="sidenav.close()" [routerLink]="['/panel/incidencias']" class="sidenav-link" *ngIf="admin">
+        <mat-icon matListIcon>maps_ugc</mat-icon>
+        <span class="sidenav-span">Gestión de Incidencias</span>
+      </a>
+      <a mat-list-item role="listitem" (click)="sidenav.close()" [routerLink]="['/panel/registrar-incidencia']" class="sidenav-link">
+        <mat-icon matListIcon>add_location</mat-icon>
+        <span class="sidenav-span">Registro de Incidencias</span>
+      </a>
+      <a mat-list-item role="listitem" (click)="sidenav.close()" [routerLink]="['/panel/contactos']" class="sidenav-link">
+        <mat-icon matListIcon>contact_phone</mat-icon>
+        <span class="sidenav-span">Contactos de Emergencia</span>
+      </a>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>GEOCODE <mat-icon style="color: #fff;">add_location_alt</mat-icon></span>
+
+      <span class="menu-spacer"></span>
+
+      <button mat-button [matMenuTriggerFor]="menu">
+        <span *ngIf="usuario" style="font-size: 16px;">{{usuario.username}}</span>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item [routerLink]="['/panel/perfil']">
+          <mat-icon>account_circle</mat-icon> Mi Perfil
+        </button>
+        <button mat-menu-item [routerLink]="['/panel/cambiar-clave']">
+          <mat-icon>lock</mat-icon> Cambiar Clave
+        </button>
+        <button mat-menu-item (click)="cerrarSesion()">
+          <mat-icon>exit_to_app</mat-icon> Cerrar Sesión
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

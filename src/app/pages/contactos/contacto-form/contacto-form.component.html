@@ -1,0 +1,64 @@
+<mat-toolbar>
+  <span>{{titulo}}</span>
+</mat-toolbar>
+
+<div class="container-app">
+  <form class="material-form" autocomplete="off" #contactoForm="ngForm" [formGroup]="form"
+    (ngSubmit)="guardarContacto()">
+
+    <div class="row">
+      <div class="col-5">
+        <div class="row">
+          <div class="col-10">
+            <h3 style="margin-bottom: 0px;">DATOS DEL CONTACTO</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Nombres</mat-label>
+              <input type="text" matInput formControlName="nombres" required>
+              <mat-error>El campo debe tener mínimo 3 caracteres y ningún número</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Apellidos</mat-label>
+              <input type="text" matInput formControlName="apellidos" required>
+              <mat-error>El campo debe tener mínimo 3 caracteres y ningún número</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Celular</mat-label>
+              <input type="number" matInput formControlName="celular" required>
+              <mat-error>El campo debe ser un número celular válido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Correo</mat-label>
+              <input type="email" matInput formControlName="correo" required>
+              <mat-error>El campo debe ser un correo válido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" mat-raised-button color="warn" class="btn-registrar"
+              [disabled]="contactoForm.invalid">
+              <mat-icon>save</mat-icon> {{txtBoton}}
+            </button>
+
+            <button type="button" mat-raised-button color="warn" class="btn-registrar" style="margin-left: 10px;"
+              [routerLink]="['/panel/contactos']">
+              <mat-icon>close</mat-icon> CANCELAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

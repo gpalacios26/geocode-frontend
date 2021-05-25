@@ -1,0 +1,32 @@
+<div class="dialog-cerrar">
+  <button mat-icon-button color="warn" [mat-dialog-close]="false">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<h3 class="dialog-titulo" mat-dialog-title>
+  {{titulo}}
+</h3>
+<div mat-dialog-content>
+  <p>
+    <span style="font-weight:500;">Evento: </span> {{incidencia.evento.descripcion}}
+  </p>
+  <p>
+    <span style="font-weight:500;">Descripción: </span> {{incidencia.descripcion}}
+  </p>
+  <p>
+    <span style="font-weight:500;">Dirección: </span> {{incidencia.direccion}}
+  </p>
+  <p>
+    <span style="font-weight:500;">Reportado por: </span> {{incidencia.usuario.nombres +' '+
+    incidencia.usuario.apellidos}}
+  </p>
+  <p>
+    <span style="font-weight:500;">Fecha y Hora del Reporte: </span> {{incidencia.fecha | date:'dd/MM/yy h:mm a'}}
+  </p>
+  <p style="text-align:center;">
+    <button mat-raised-button color="warn" type="button" (click)="verGoogleMaps()">
+      <span>VER UBICACIÓN</span>
+      <mat-icon>place</mat-icon>
+    </button>
+  </p>
+</div>

@@ -1,0 +1,130 @@
+<div id="precarga" class="main-wrapper" *ngIf="loader" [style.height.px]="height" (window:resize)="onResize($event)">
+  <div class="box">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
+</div>
+
+<div class="container-map" *ngIf="!loader">
+  <agm-map (mapClick)="closeWindow($event)" [latitude]="lat" [longitude]="lng" [zoom]="zoom" [style.height.px]="height"
+    (window:resize)="onResize($event)">
+
+    <agm-marker (markerClick)="selectMarker(infoWindow)" [latitude]="lat" [longitude]="lng"
+      [iconUrl]="'../assets/images/marcador.png'" *ngIf="userLocation">
+      <agm-info-window [isOpen]="false" #infoWindow>
+        <h3>Mi Ubicación Actual</h3>
+      </agm-info-window>
+    </agm-marker>
+
+    <agm-marker-cluster imagePath="../assets/images/cluster/tienda_">
+      <agm-marker (markerClick)="selectMarker(infoWindow)" *ngFor="let tienda of tiendas; let i = index"
+        [latitude]="tienda.latitud" [longitude]="tienda.longitud" [iconUrl]="'../assets/images/tienda.png'">
+        <agm-info-window #infoWindow>
+          <div class="center">
+            <img [src]="tienda.imagen">
+          </div>
+          <h3>{{tienda.titulo}}</h3>
+          <p>{{tienda.direccion}}</p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-marker-cluster>
+
+    <agm-marker-cluster imagePath="../assets/images/cluster/farmacia_">
+      <agm-marker (markerClick)="selectMarker(infoWindow)" *ngFor="let farmacia of farmacias; let i = index"
+        [latitude]="farmacia.latitud" [longitude]="farmacia.longitud" [iconUrl]="'../assets/images/farmacia.png'">
+        <agm-info-window #infoWindow>
+          <div class="center">
+            <img [src]="farmacia.imagen">
+          </div>
+          <h3>{{farmacia.titulo}}</h3>
+          <p>{{farmacia.direccion}}</p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-marker-cluster>
+
+    <agm-marker-cluster imagePath="../assets/images/cluster/banco_">
+      <agm-marker (markerClick)="selectMarker(infoWindow)" *ngFor="let banco of bancos; let i = index"
+        [latitude]="banco.latitud" [longitude]="banco.longitud" [iconUrl]="'../assets/images/banco.png'">
+        <agm-info-window #infoWindow>
+          <div class="center">
+            <img [src]="banco.imagen">
+          </div>
+          <h3>{{banco.titulo}}</h3>
+          <p>{{banco.direccion}}</p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-marker-cluster>
+
+    <agm-marker-cluster imagePath="../assets/images/cluster/bombero_">
+      <agm-marker (markerClick)="selectMarker(infoWindow)" *ngFor="let bombero of bomberos; let i = index"
+        [latitude]="bombero.latitud" [longitude]="bombero.longitud" [iconUrl]="'../assets/images/bombero.png'">
+        <agm-info-window #infoWindow>
+          <div class="center">
+            <img [src]="bombero.imagen" height="120px">
+          </div>
+          <h3>{{bombero.titulo}}</h3>
+          <p>{{bombero.direccion}}</p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-marker-cluster>
+
+    <agm-marker-cluster imagePath="../assets/images/cluster/comisaria_">
+      <agm-marker (markerClick)="selectMarker(infoWindow)" *ngFor="let comisaria of comisarias; let i = index"
+        [latitude]="comisaria.latitud" [longitude]="comisaria.longitud" [iconUrl]="'../assets/images/comisaria.png'">
+        <agm-info-window #infoWindow>
+          <div class="center">
+            <img [src]="comisaria.imagen" height="120px">
+          </div>
+          <h3>{{comisaria.titulo}}</h3>
+        </agm-info-window>
+      </agm-marker>
+    </agm-marker-cluster>
+
+    <agm-marker-cluster imagePath="../assets/images/cluster/incidencia_">
+      <agm-marker (markerClick)="selectMarker(infoWindow)" *ngFor="let incidencia of incidencias; let i = index"
+        [latitude]="incidencia.latitud" [longitude]="incidencia.longitud" [iconUrl]="'../assets/images/incidencia.png'">
+        <agm-info-window #infoWindow>
+          <h3>{{incidencia.evento.descripcion}}</h3>
+          <p><strong>Incidencia:</strong> {{incidencia.descripcion}}</p>
+          <p><strong>Dirección:</strong> {{incidencia.direccion}}</p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-marker-cluster>
+
+  </agm-map>
+</div>
+
+<div class="float-btn" *ngIf="!loader">
+  <button mat-fab color="basic" (click)="toogleDiv()">
+    <mat-icon>layers</mat-icon>
+  </button>
+</div>
+
+<div class="float-div" *ngIf="!loader && divLayers">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Capas</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        <mat-checkbox color="warn" [(ngModel)]="checkedTiendas" (change)="changeLayerValue()">Tiendas
+        </mat-checkbox>
+      </p>
+      <p>
+        <mat-checkbox color="warn" [(ngModel)]="checkedFarmacias" (change)="changeLayerValue()">Farmacias
+        </mat-checkbox>
+      </p>
+      <p>
+        <mat-checkbox color="warn" [(ngModel)]="checkedBancos" (change)="changeLayerValue()">Bancos
+        </mat-checkbox>
+      </p>
+      <p>
+        <mat-checkbox color="warn" [(ngModel)]="checkedBomberos" (change)="changeLayerValue()">Bomberos
+        </mat-checkbox>
+      </p>
+      <p>
+        <mat-checkbox color="warn" [(ngModel)]="checkedComisarias" (change)="changeLayerValue()">Comisarías
+        </mat-checkbox>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

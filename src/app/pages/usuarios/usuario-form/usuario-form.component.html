@@ -1,0 +1,71 @@
+<mat-toolbar>
+  <span>Registrar Usuario</span>
+</mat-toolbar>
+
+<div class="container-app">
+  <form class="material-form" autocomplete="off" #usuarioForm="ngForm" [formGroup]="form"
+    (ngSubmit)="registrarUsuario()">
+
+    <div class="row">
+      <div class="col-5">
+        <div class="row">
+          <div class="col-10">
+            <h3 style="margin-bottom: 0px;">DATOS DEL USUARIO</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Nombres</mat-label>
+              <input type="text" matInput formControlName="nombres" required>
+              <mat-error>El campo debe tener mínimo 3 caracteres y ningún número</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Apellidos</mat-label>
+              <input type="text" matInput formControlName="apellidos" required>
+              <mat-error>El campo debe tener mínimo 3 caracteres y ningún número</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Correo</mat-label>
+              <input type="email" matInput formControlName="correo" required (blur)="validarCorreo()">
+              <mat-error>El campo debe ser único y debe tener formato email</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Usuario</mat-label>
+              <input type="text" matInput formControlName="username" required (blur)="validarUsuario()">
+              <mat-error>El campo debe ser único y debe tener mínimo de 6 caracteres</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Contraseña</mat-label>
+              <input type="password" matInput formControlName="password" required>
+              <mat-error>El campo debe tener mínimo 8 caracteres, al menos una minúscula, al menos una mayúscula y
+                al menos un número</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" mat-raised-button color="warn" class="btn-registrar" [disabled]="usuarioForm.invalid">
+              <mat-icon>save</mat-icon> REGISTRAR
+            </button>
+
+            <button type="button" mat-raised-button color="warn" class="btn-registrar" style="margin-left: 10px;"
+              [routerLink]="['/panel/usuarios']">
+              <mat-icon>close</mat-icon> CANCELAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

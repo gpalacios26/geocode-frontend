@@ -1,0 +1,51 @@
+<mat-toolbar>
+  <span>Gestión de Incidencias</span>
+</mat-toolbar>
+
+<div class="container-app">
+  <mat-form-field>
+    <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar...">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="idIncidencia">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element"> {{element.idIncidencia}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="evento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Evento</th>
+      <td mat-cell *matCellDef="let element"> {{element.evento.descripcion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="direccion">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dirección</th>
+      <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha | date:'dd/MM/yy h:mm a'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="warn" matTooltip="Mostrar Detalle" matTooltipPosition="above"
+          (click)="mostrarDetalle(element)" class="mini-btn">
+          <mat-icon>description</mat-icon>
+        </button>
+        <button mat-raised-button color="warn" matTooltip="Exportar PDF" matTooltipPosition="above"
+          (click)="exportar(element.idIncidencia)" class="mini-btn" style="margin-left:15px;">
+          <mat-icon>save_alt</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]" [length]="cantidad"
+    (page)="siguientePagina($event)"></mat-paginator>
+</div>

@@ -1,0 +1,50 @@
+<div class="dialog-cerrar">
+  <button mat-icon-button color="warn" [mat-dialog-close]="false">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<h3 class="dialog-titulo" mat-dialog-title>
+  {{titulo}}
+</h3>
+<div mat-dialog-content>
+  <p>
+    <span style="font-weight:500;">Descargar el formato: </span>
+    <a (click)="exportarFormato()" style="cursor:pointer;color:#bf0909;font-weight:400;">Contactos.xlsx</a>
+  </p>
+  <p>
+    <span style="font-weight:500;">Cargar el archivo: </span>
+    <input id="flArchivo" type="file" (change)="seleccionarArchivo($event)">
+  </p>
+  <p style="text-align:right;">
+    <button mat-raised-button color="warn" type="button" (click)="cargarFormato()" [disabled]="!archivos">
+      <span>GENERAR VISTA PREVIA</span>
+    </button>
+  </p>
+  <div *ngIf="contactos.length > 0">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Celular</th>
+            <th>Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contacto of contactos">
+            <td>{{contacto.nombres}}</td>
+            <td>{{contacto.apellidos}}</td>
+            <td>{{contacto.celular}}</td>
+            <td>{{contacto.correo}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:right;">
+      <button mat-raised-button color="warn" type="button" (click)="procesarFormato()">
+        <span>PROCESAR CONTACTOS</span>
+      </button>
+    </p>
+  </div>
+</div>

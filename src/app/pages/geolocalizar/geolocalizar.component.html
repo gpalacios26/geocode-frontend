@@ -1,0 +1,99 @@
+<div id="precarga" class="main-wrapper" *ngIf="loader" [style.height.px]="height" (window:resize)="onResize($event)">
+  <div class="box">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
+</div>
+
+<mat-toolbar>
+  <span>Registro de Incidencias</span>
+</mat-toolbar>
+
+<div class="container-app">
+  <form class="material-form" autocomplete="off" #geoForm="ngForm" [formGroup]="form"
+    (ngSubmit)="registrarIncidencia()">
+
+    <div class="row">
+      <div class="col-5">
+        <div class="row">
+          <div class="col-10">
+            <h3 style="margin-bottom: 0px;">DATOS DE IDENTIFICACIÓN</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-10" *ngIf="eventos">
+            <mat-form-field class="material-full-width">
+              <mat-label>Tipo de Evento</mat-label>
+              <mat-select formControlName="idTipo" required>
+                <mat-option *ngFor="let evento of eventos" [value]="evento.idEvento">
+                  {{evento.descripcion}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-10">
+            <mat-form-field class="material-full-width">
+              <mat-label>Descripción</mat-label>
+              <textarea rows="4" matInput formControlName="descripcion" required></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-10">
+            <h3 style="margin-top: 0px; margin-bottom: 0px;">DATOS DE UBICACIÓN</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-9">
+            <mat-form-field class="material-full-width">
+              <mat-label>Dirección</mat-label>
+              <input type="text" matInput formControlName="direccion" required>
+            </mat-form-field>
+          </div>
+          <div class="col-1">
+            <button type="button" mat-mini-fab color="warn" matTooltip="Buscar" matTooltipPosition="above"
+              (click)="getCoordenadas()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-5">
+            <mat-form-field class="material-full-width">
+              <mat-label>Latitud</mat-label>
+              <input type="text" matInput [value]="latitud" disabled>
+            </mat-form-field>
+          </div>
+          <div class="col-5">
+            <mat-form-field class="material-full-width">
+              <mat-label>Longitud</mat-label>
+              <input type="text" matInput [value]="longitud" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12" style="margin-top: 15px;">
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [usePanning]="true" [fullscreenControl]="true">
+              <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="'../assets/images/marcador.png'"
+                [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+              </agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+      <div class="col-11">
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" mat-raised-button color="warn" class="btn-registrar" [disabled]="geoForm.invalid">
+              <mat-icon>save</mat-icon> REGISTRAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

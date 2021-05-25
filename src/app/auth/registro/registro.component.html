@@ -1,0 +1,46 @@
+<div class="main-wrapper">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>REGISTRAR CUENTA</mat-card-title>
+    </mat-card-header>
+
+    <form class="material-form" autocomplete="off" #registroForm="ngForm" [formGroup]="form"
+      (ngSubmit)="registrarUsuario()">
+
+      <mat-card-content>
+        <mat-form-field class="material-full-width">
+          <input type="text" matInput placeholder="Nombres" formControlName="nombres" required>
+          <mat-error>El campo debe tener mínimo 3 caracteres y ningún número</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="material-full-width">
+          <input type="text" matInput placeholder="Apellidos" formControlName="apellidos" required>
+          <mat-error>El campo debe tener mínimo 3 caracteres y ningún número</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="material-full-width">
+          <input type="email" matInput placeholder="Correo" formControlName="correo" required (blur)="validarCorreo()">
+          <mat-error>El campo debe ser único y debe tener formato email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="material-full-width">
+          <input type="text" matInput placeholder="Usuario" formControlName="username" required
+            (blur)="validarUsuario()">
+          <mat-error>El campo debe ser único y debe tener mínimo de 6 caracteres</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="material-full-width">
+          <input type="password" matInput placeholder="Contraseña" formControlName="password" required>
+          <mat-error>El campo debe tener mínimo 8 caracteres, al menos una minúscula, al menos una mayúscula y
+            al menos un número</mat-error>
+        </mat-form-field>
+      </mat-card-content>
+
+      <button type="submit" mat-raised-button color="warn" class="btn-block" [disabled]="registroForm.invalid">
+        <mat-icon>how_to_reg</mat-icon> REGISTRAR
+      </button>
+
+      <p class="footer-card">Ya tienes una cuenta? <a [routerLink]="['/login']">Ingresa aquí</a></p>
+    </form>
+  </mat-card>
+</div>

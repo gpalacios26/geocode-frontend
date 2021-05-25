@@ -1,0 +1,70 @@
+<mat-toolbar>
+  <span>Gestión de Usuarios</span>
+</mat-toolbar>
+
+<div class="container-app">
+  <button mat-raised-button color="warn" (click)="exportar()" style="float:right;margin-top:15px;" *ngIf="usuarios">
+    <mat-icon>file_download</mat-icon> DESCARGAR
+  </button>
+
+  <mat-form-field>
+    <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar...">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="idUsuario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element"> {{element.idUsuario}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombres">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres</th>
+      <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
+      <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="correo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Correo</th>
+      <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.enabled">Activo</span>
+        <span *ngIf="!element.enabled">Inactivo</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button color="warn" matTooltip="Cambiar Estado" matTooltipPosition="above"
+          (click)="cambiarEstado(element)">
+          <mat-icon *ngIf="element.enabled" style="font-size: 30px;">check_box</mat-icon>
+          <mat-icon *ngIf="!element.enabled" style="font-size: 30px;">check_box_outline_blank</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 50, 100]" [length]="cantidad"
+    (page)="siguientePagina($event)"></mat-paginator>
+
+  <button mat-fab color="warn" matTooltip="Registrar" matTooltipPosition="above" style="float:right;margin-top:15px;"
+    [routerLink]="['/panel/usuarios/registrar']">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
